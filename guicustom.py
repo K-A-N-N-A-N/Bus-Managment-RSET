@@ -3,6 +3,10 @@
 import customtkinter as ctk
 import tkinter as tk
 
+#connecting to the mysql database
+import mysql.connector
+conn = mysql.connector.connect(host='localhost',username='root',password='456ASDcvb###',database='bustrial')
+busdb=conn.cursor()
 # Sets the appearance of the window
 # Supported modes : Light, Dark, System
 # "System" sets the appearance mode to 
@@ -55,17 +59,27 @@ class App(ctk.CTk):
         
 		# Generate Button
 		self.generateResultsButton = ctk.CTkButton(self,
-										text="Generate Results",
+										text="Login",
 										command=self.printf)
 		self.generateResultsButton.grid(row=5, column=1,
 										columnspan=2, padx=20, 
 										pady=20, sticky="ew")
 
 	def printf(self):
+		flag=0
+		busdb.execute("select * from student")
 		user = self.userEntry.get()
 		passw = self.passwEntry.get()
-		print("the userid is ",user)
-		print("the passw is ",passw)
+		for row in busdb:
+			if row[0]==user:
+				flag=1
+				if row[1]==passw:
+					print("login SUCCESFULL")
+				else:
+					print("incorrect Password")
+		if flag==0:
+			print("user NOT FOUND")			
+		
 		
 	
 
