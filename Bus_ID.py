@@ -43,7 +43,7 @@ def V_BusID():
     BusId_label = CTkLabel(master=VID_app, text= "Bus ID : ",font= ("courier new", 15), text_color = "red" )
     BusId_label.place(relx = 0.2, rely = 0.6, anchor = "e" )
     BusId_db = CTkLabel(master=VID_app, text= busid,font= ("courier new", 15), text_color = "red" )
-    BusId_db.place(relx = 0.5, rely = 0.6, anchor = "center" )
+    BusId_db.place(relx = 0.5, rely = 0.6, anchor = "center")
 
     BusNo_label = CTkLabel(master=VID_app, text= "Bus No : ",font= ("courier new", 15), text_color = "red" )
     BusNo_label.place(relx = 0.2, rely = 0.7, anchor = "e" )
