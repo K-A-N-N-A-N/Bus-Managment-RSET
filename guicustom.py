@@ -5,9 +5,9 @@ import tkinter as tk
 
 
 #connecting to the mysql database
-'''import mysql.connector
-conn = mysql.connector.connect(host='192.168.249.148',username='user44',password='456ASDcvb###',database='bustrial')
-busdb=conn.cursor()'''
+import mysql.connector
+conn = mysql.connector.connect(host='localhost',username='root',password='456ASDcvb###',database='bustrial')
+busdb=conn.cursor()
 # Sets the appearance of the window
 # Supported modes : Light, Dark, System
 # "System" sets the appearance mode to 
@@ -68,18 +68,25 @@ class App(ctk.CTk):
 
 	def printf(self):
 		flag=0
-		#busdb.execute("select * from student")
-		busdb=(("u2101","pass"))
+		busdb.execute("select * from student")
+		#busdb=(("u2101","pass"))
 		user = self.userEntry.get()
 		passw = self.passwEntry.get()
 		for row in busdb:
-			if row[0]==user and row[1]==passw:
+			if row[0]==user:
+				flag=1
+				if row[1]==passw:
 					self.destroy()
 					print("hello")
-			else:
+				else:
+					self.passwEntry.delete(0, ctk.END)
+					self.wrloginLabel = ctk.CTkLabel(self, text="Incorrect password",text_color="blue")
+					self.wrloginLabel.grid(row=7, column=1,columnspan=2, padx=20, sticky="ew")
+						
+			if flag==0:
 				self.userEntry.delete(0, ctk.END)
 				self.passwEntry.delete(0, ctk.END)
-				self.wrloginLabel = ctk.CTkLabel(self, text="wrong login credentials",text_color="blue")
+				self.wrloginLabel = ctk.CTkLabel(self, text="User not Found",text_color="blue")
 				self.wrloginLabel.grid(row=7, column=1,columnspan=2, padx=20, sticky="ew")
 		
 		
