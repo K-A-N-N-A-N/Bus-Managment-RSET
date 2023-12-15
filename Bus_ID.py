@@ -4,6 +4,7 @@ from PIL import Image
 import mysql.connector
 conn = mysql.connector.connect(host='localhost',username='root',password='456ASDcvb###',database='bustrial')
 busdb=conn.cursor()
+#busdd=conn.cursor()
 
 def V_BusID():
     bbuid="U2101"
@@ -35,7 +36,7 @@ def V_BusID():
     #barcode_label = CTkLabel(VID_app,image = barcode_image, text="")
     #barcode_label.grid(row = 0, column = 0)
 
-    Uid_label = CTkLabel(master=VID_app, text= "UID : uii",font= ("courier new", 15), text_color = "red" )
+    Uid_label = CTkLabel(master=VID_app, text= "UID : ",font= ("courier new", 15), text_color = "red" )
     Uid_label.place(relx = 0.2, rely = 0.5, anchor = "e" )
     Uid_db = CTkLabel(master=VID_app, text= bbuid,font= ("courier new", 15), text_color = "red" )
     Uid_db.place(relx = 0.5, rely = 0.5, anchor = "w" )
@@ -80,6 +81,8 @@ def Pay():
                 flagr=1
                 if row[3]>0:
                     print("Seats are Available")
+                    print("Rate is :" + str(row[2]))
+
                 else:
                     print("Unavailable")
         if flagr==0:
@@ -88,6 +91,10 @@ def Pay():
 
     def pay():
         route=Route_entry.get()
+        busdb.execute('select count(*)from student')
+        for row in busdb:
+            num = row[0]+1
+            BUID="B0"+str(num)
         busdb.execute("select * from busdet")
         flagr=0 
         for row in busdb:
@@ -95,6 +102,7 @@ def Pay():
                 flagr=1
                 if row[3]>0:
                     print("payment succesfull")
+                    print("Your BusID =" + BUID )    
                 else:
                     print("seats Unavailable")
         if flagr==0:
@@ -111,4 +119,4 @@ def Pay():
     Pay_app.mainloop()
 
 V_BusID()
-#Pay()
+Pay()
