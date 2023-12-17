@@ -2,6 +2,7 @@ import tkinter
 import customtkinter as ctk
 import warnings
 from PIL import ImageTk,Image
+import SignUp
 import menu
 
 def login():
@@ -32,6 +33,10 @@ def login():
                 passwEntry.delete(0, ctk.END)
                 l3=ctk.CTkLabel(master=frame, text="wrong login credentials",font=('Century Gothic',20))
                 l3.place(x=50, y=195)
+    
+    def SignBtn_function():
+        app.destroy()
+        SignUp.enroll()
 
     warnings.filterwarnings('ignore') 
     img1=ImageTk.PhotoImage(Image.open("rsetlogo.png"))
@@ -52,8 +57,11 @@ def login():
     passwEntry.place(x=50, y=165)
 
     #Create custom button
-    button1 = ctk.CTkButton(master=frame, width=220, text="Login", command=button_function, corner_radius=6)
-    button1.place(x=50, y=240)
+    loginBtn = ctk.CTkButton(master=frame, width=110, text="Login", command=button_function, corner_radius=6)
+    loginBtn.place(x=40, y=240)
+
+    SignBtn = ctk.CTkButton(master=frame, width=110, text="Sign Up", command=SignBtn_function, corner_radius=6)
+    SignBtn.place(x=170, y=240)
 
     app.mainloop()
     return li
