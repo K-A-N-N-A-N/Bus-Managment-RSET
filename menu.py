@@ -55,7 +55,6 @@ def main():
     l1.pack()
 
 
-    #creating custom frame
     frame=ctk.CTkFrame(master=l1, width=320, height=360, corner_radius=40)
     frame.place(relx=0.5, rely=0.5, anchor=tkinter.CENTER)
 
@@ -83,7 +82,4 @@ def main():
 
 if __name__== "__main__":
      my=logingui.login()
-     print("hello")
-     print(my)
-     print("hello")
      main()

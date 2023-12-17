@@ -37,7 +37,7 @@ def login():
     l1.pack()
 
     #creating custom frame
-    frame=ctk.CTkFrame(master=l1, width=320, height=360, corner_radius=30)
+    frame=ctk.CTkFrame(master=l1, width=320, height=360,bg_color="transparent",corner_radius=30)
     frame.place(relx=0.5, rely=0.5, anchor=tkinter.CENTER)
 
     l2=ctk.CTkLabel(master=frame, text="Log into your Account",font=('Century Gothic',20))
