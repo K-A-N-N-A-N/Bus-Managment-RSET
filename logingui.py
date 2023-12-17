@@ -2,6 +2,7 @@ import tkinter
 import customtkinter as ctk
 import warnings
 from PIL import ImageTk,Image
+import menu
 
 def login():
     li=[]
@@ -25,6 +26,7 @@ def login():
                 li.append(user)
                 li.append(passw)
                 app.destroy()
+                menu.main()
             else:
                 userEntry.delete(0, ctk.END)
                 passwEntry.delete(0, ctk.END)
@@ -32,7 +34,7 @@ def login():
                 l3.place(x=50, y=195)
 
     warnings.filterwarnings('ignore') 
-    img1=ImageTk.PhotoImage(Image.open("C:\\Users\\MY PC\\OneDrive\\Desktop\\Example\\rsetlogo.png"))
+    img1=ImageTk.PhotoImage(Image.open("rsetlogo.png"))
     l1=ctk.CTkLabel(master=app,image=img1)
     l1.pack()
 
@@ -55,3 +57,4 @@ def login():
 
     app.mainloop()
     return li
+login()

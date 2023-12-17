@@ -1,20 +1,18 @@
 import tkinter
 import customtkinter as ctk
 import warnings
-import logingui
+import registration
 from PIL import ImageTk,Image
+from customtkinter import *
 
 def main():
     
     ctk.set_appearance_mode("dark")  
     ctk.set_default_color_theme("dark-blue")  
 
-
     root = ctk.CTk()  
     root.geometry("600x440")
     root.title('BUS DETAILS')
-
-
 
     def button_function():
         root.destroy()            
@@ -32,10 +30,8 @@ def main():
         bus_app_window.mainloop()
 
     def fees_payment_gui():
-        fees_payment_window = ctk.CTk()
-        fees_payment_window.title("Fees Payment")
-        fees_payment_window.geometry("300x200")
-        fees_payment_window.mainloop()
+        root.destroy()
+        registration.register()
 
     def profile_gui():
         profile_window = ctk.CTk()
@@ -50,7 +46,7 @@ def main():
         bus_details_window.mainloop()
 
     warnings.filterwarnings('ignore') 
-    img1=ImageTk.PhotoImage(Image.open("C:\\Users\\MY PC\\OneDrive\\Desktop\\Example\\rsetlogo2.png"))
+    img1=ImageTk.PhotoImage(Image.open("rsetlogo2.png"))
     l1=ctk.CTkLabel(master=root,image=img1)
     l1.pack()
 
@@ -67,7 +63,7 @@ def main():
     button2 = ctk.CTkButton(master=frame, width=220, text="Application", command=bus_app_gui, corner_radius=30)
     button2.place(x=50, y=150)
 
-    button3 = ctk.CTkButton(master=frame, width=220, text="Fees Payment", command=bus_details_gui, corner_radius=30)
+    button3 = ctk.CTkButton(master=frame, width=220, text="Fees Payment", command=fees_payment_gui, corner_radius=30)
     button3.place(x=50, y=190)
 
 
@@ -77,9 +73,8 @@ def main():
 
 
     root.mainloop()
-
-
-
+'''
 if __name__== "__main__":
      my=logingui.login()
-     main()
+     #main()
+'''
