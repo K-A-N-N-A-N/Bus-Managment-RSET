@@ -5,9 +5,9 @@ import registration
 import Bus_ID
 import busroutes
 import Profile
+import mysql.connector
 from PIL import ImageTk,Image
 from customtkinter import *
-import mysql.connector
 
 
 def main():

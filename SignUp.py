@@ -6,10 +6,11 @@ import logingui
 import warnings
 
 import mysql.connector
-conn = mysql.connector.connect(host='localhost',username='root',password='456ASDcvb###',database='RSETbus')
-busdb=conn.cursor()
+
 
 def enroll():
+    conn = mysql.connector.connect(host='localhost',username='root',password='456ASDcvb###',database='RSETbus')
+    busdb=conn.cursor()
     
     enroll_app = CTk()
     enroll_app.title("Enroll")

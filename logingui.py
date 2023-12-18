@@ -4,7 +4,6 @@ import warnings
 from PIL import ImageTk,Image
 import SignUp
 import menu
-
 import mysql.connector
 
 

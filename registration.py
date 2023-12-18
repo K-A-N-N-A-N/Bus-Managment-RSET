@@ -3,11 +3,9 @@ import customtkinter
 import logingui
 import menu
 import warnings
+import mysql.connector
 from customtkinter import *
 from PIL import Image, ImageTk
-
-import mysql.connector
-
 
 rflag = 0
 busn=0

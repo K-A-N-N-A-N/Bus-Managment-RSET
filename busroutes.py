@@ -16,7 +16,6 @@ def buss():
         app.geometry("800x640")
         app.title('BUS DETAILS')
 
-
         warnings.filterwarnings('ignore') 
         img1=ImageTk.PhotoImage(Image.open("rsetlogo2.png"))
         l1=ctk.CTkLabel(master=app,image=img1)

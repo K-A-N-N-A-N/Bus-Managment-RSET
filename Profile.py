@@ -3,10 +3,9 @@ import customtkinter
 import menu
 import warnings
 import registration
+import mysql.connector
 from customtkinter import *
 from PIL import Image, ImageTk
-
-import mysql.connector
 
 
 def Prof():

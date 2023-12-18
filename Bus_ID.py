@@ -2,7 +2,6 @@ from customtkinter import *
 from PIL import Image,ImageTk
 import menu
 import warnings
-
 import mysql.connector
 
  

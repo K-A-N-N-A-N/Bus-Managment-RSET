@@ -4,7 +4,6 @@ import tkinter
 import menu
 import busroutes
 from PIL import ImageTk,Image
-
 import mysql.connector
 
       
