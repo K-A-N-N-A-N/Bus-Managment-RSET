@@ -5,9 +5,9 @@ from PIL import Image, ImageTk
 import logingui
 import warnings
 
-#import mysql.connector
-#conn = mysql.connector.connect(host='localhost',username='root',password='456ASDcvb###',database='RSETbus')
-#busdb=conn.cursor()
+import mysql.connector
+conn = mysql.connector.connect(host='localhost',username='root',password='456ASDcvb###',database='RSETbus')
+busdb=conn.cursor()
 
 def enroll():
     
@@ -26,7 +26,8 @@ def enroll():
     image_lab = customtkinter.CTkLabel(master=enroll_app, image=bg_img)
     image_lab.pack()
     
-    back_btn = CTkButton(master=enroll_app, width=50, height=10, text="<-Back", corner_radius=40, fg_color="black",command=back)
+    img2=ImageTk.PhotoImage(Image.open("back33.png"))
+    back_btn = CTkButton(master=enroll_app,width=50,text="", height=10,image=img2, compound="left", fg_color="#0c9bb3",command = back)
     back_btn.place(relx = 0.1, rely = 0.05, anchor = "e")
     
     frame = customtkinter.CTkFrame(master=image_lab, width=340,height=340, corner_radius=40)
@@ -71,15 +72,11 @@ def enroll():
             "Year": Year_entry.get(),
             "Address": Addrs_entry.get()
         }
-        '''
-        busdb.execute('select count(*)from student')
-        for row in busdb:
-            num = row[0]+1
-            BUID="B0"+str(num)
-        '''
+        
         msg = CTkLabel(master=frame,text = "Enrollment completed!", font = ("Century Gothic",18),text_color="#FFCC70")
-        #busdb.execute("insert into student(Name, UID, password,class,Year,address) VALUES (%s,%s,%s,%s,%s,%s)", (entry1.get(),entry2.get(),entry3.get(),entry4.get(),entry5.get(),entry6.get()))
-        #conn.commit()
+        busdb.execute("insert into student(Name, UID, password,class,Year,address) VALUES (%s,%s,%s,%s,%s,%s)", 
+        (name_entry.get(),UID_entry.get(),Pass_entry.get(),Class_entry.get(),Year_entry.get(),Addrs_entry.get()))
+        conn.commit()
         msg.place(x = 70, y = 310)
 
     btn = CTkButton(master=frame,text="Enroll",corner_radius=32,fg_color="#FFCC70",text_color="black",hover_color="#4158D0",command=store)

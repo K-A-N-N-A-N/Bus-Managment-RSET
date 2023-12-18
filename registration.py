@@ -1,26 +1,42 @@
 import tkinter
 import customtkinter
+import logingui
+import menu
+import warnings
 from customtkinter import *
 from PIL import Image, ImageTk
 
 import mysql.connector
-conn = mysql.connector.connect(host='localhost',username='root',password='456ASDcvb###',database='RSETbus')
-busdb=conn.cursor()
-UId= "U3344"
+
+
 rflag = 0
 busn=0
+
 def register():
+    conn = mysql.connector.connect(host='localhost',username='root',password='456ASDcvb###',database='RSETbus')
+    busdb=conn.cursor()
+    busdb.execute('select * from current')
+    for row in busdb:
+        if row[1]==7:
+            UId=row[0] 
     reg_app = CTk()
     reg_app.title("Register / Pay")
     reg_app.geometry("600x440")
     set_appearance_mode("dark")
     set_default_color_theme("dark-blue")
 
+    def back():
+        reg_app.destroy()
+        menu.main()
+    warnings.filterwarnings('ignore') 
     bg_img = ImageTk.PhotoImage(Image.open("rsetlogo2.png"))
     img_l1 = customtkinter.CTkLabel(master=reg_app,image=bg_img)
     img_l1.pack()
 
-    back_btn = CTkButton(master=reg_app,width=50, height=10, text = "<- Back", compound="left", corner_radius=40, fg_color="black")
+
+    warnings.filterwarnings('ignore') 
+    img2=ImageTk.PhotoImage(Image.open("back33.png"))
+    back_btn = CTkButton(master=reg_app,width=50,text="", height=10,image=img2, compound="left", fg_color="#0c9bb3",command = back)
     back_btn.place(relx = 0.1, rely = 0.05, anchor = "e")
 
     frame = customtkinter.CTkFrame(master=img_l1,width=320, height=340, corner_radius=40)
@@ -67,36 +83,18 @@ def register():
             Note3 = CTkLabel(master=frame,text="Route Does Not Exist ",font=('Century Gothic',20))
             Note3.place(x = 50, y = 240)
 
-        '''x = "Y" # for checking with dbms
-        y = 1500 # for sending rate to the label
-        if x == "Y":
-            Rate_entry = CTkEntry(master=frame,width=220, placeholder_text=y)
-            Rate_entry.place(x = 50, y = 145)
-
-            Note = CTkLabel(master=frame,text="Seats Available",font=('Century Gothic',20))
-            Note.place(x = 50, y = 240)
-            return 1
-        else:
-            Note = CTkLabel(master=frame,text="Seats Unavailable",font=('Century Gothic',20))
-            Note.place(x = 50, y = 240)
-            Note = CTkLabel(master=frame,text="Route Doesnt Exist. Enter valid Route",font=('Century Gothic',20))
-            Note.place(x = 50, y = 240)
-            return 0'''
-
     def pay():
-        print("deez nits")
         if rflag == 1:
-            print("deez nuts")
             busdb.execute('select count(*) from bstudent')
             for row in busdb:
                 num = row[0]+1
                 BUID= "B0"+str(num)
-            print(BUID)    
             busdb.execute('select * from student')
-            for row in busdb:
+            rows = busdb.fetchall()
+
+            for row in rows:
                 if row[0]==UId:
                     if row[2]==1:
-                        print("paid already")
                         Note = CTkLabel(master=frame,text="Already paid",font=('Century Gothic',20))
                         Note.place(x = 50, y = 270)
                     else:
@@ -106,15 +104,10 @@ def register():
                         busdb.execute('update student set payment_status = 1 where UID = %s',(UId,))    
                         conn.commit()
 
-
-
     Check_btn = CTkButton(master=frame,width=100, height=20, text = "Check", compound="left", corner_radius=6, fg_color="white", text_color="black", command=check)
     Check_btn.place(x = 50, y = 200)
 
     pay_btn = CTkButton(master=frame,width=100, height=20, text = "Pay", compound="left", corner_radius=6, fg_color="white", text_color="black", command=pay)
     pay_btn.place(x = 170, y = 200)
 
-   
     reg_app.mainloop()
-
-register()
