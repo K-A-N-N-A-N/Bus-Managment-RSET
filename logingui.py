@@ -4,9 +4,12 @@ import warnings
 from PIL import ImageTk,Image
 import SignUp
 import menu
+import mysql.connector
+
 
 def login():
-    li=[]
+    conn = mysql.connector.connect(host='localhost',username='root',password='456ASDcvb###',database='RSETbus')
+    busdb=conn.cursor()
     try:
         ctk.set_appearance_mode("System")  # Modes: system (default), light, dark
         ctk.set_default_color_theme("dark-blue")  # Themes: blue (default), dark-blue, green
@@ -18,14 +21,16 @@ def login():
     app.title('Login')
 
     def button_function():
-        busdb=[("u2101","pass")]
-        user = userEntry.get()
+
+        busdb.execute('SELECT * FROM student')
+        User = userEntry.get()
         passw = passwEntry.get()
-        print(user,passw)
-        for row in busdb:
-            if row[0]==user and row[1]==passw:
-                li.append(user)
-                li.append(passw)
+        rows = busdb.fetchall()
+
+        for row in rows:
+            if row[0]==User and row[1]==passw:
+                busdb.execute('UPDATE current SET ID = %s WHERE i = 7', (User,))
+                conn.commit()
                 app.destroy()
                 menu.main()
             else:
@@ -33,7 +38,7 @@ def login():
                 passwEntry.delete(0, ctk.END)
                 l3=ctk.CTkLabel(master=frame, text="wrong login credentials",font=('Century Gothic',20))
                 l3.place(x=50, y=195)
-    
+               
     def SignBtn_function():
         app.destroy()
         SignUp.enroll()
@@ -64,5 +69,7 @@ def login():
     SignBtn.place(x=170, y=240)
 
     app.mainloop()
-    return li
-login()
+    conn.commit()
+
+if __name__ == "__main__":
+    login()
